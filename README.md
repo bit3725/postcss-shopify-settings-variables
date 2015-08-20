@@ -13,6 +13,8 @@ With this simple plugin, you can use code like `$(headline_color)` instead. It w
     color: $(headline_color);
     font-family: $(regular_websafe_font | replace: '+', ' ');
     font-size: $(regular_font_size)px;
+    border: 1px solid $(border_color);
+    background: rgba($(settings.header_bg_color), 0.9);
 }
 ```
 
@@ -21,6 +23,8 @@ With this simple plugin, you can use code like `$(headline_color)` instead. It w
     color: {{ settings.headline_color }};
     font-family: {{ settings.regular_websafe_font | replace: '+', ' ' }};
     font-size: {{ settings.regular_font_size }}px;
+    border: 1px solid {{ settings.border_color ));
+    background: rgba({{ settings.header_bg_color }}, 0.9);
 }
 ```
 

@@ -1,6 +1,7 @@
 var postcss = require('postcss');
 
-module.exports = postcss.plugin('postcss-shopify-settings-variables', function (opts) {
+module.exports = postcss.plugin('postcss-shopify-settings-variables',
+  function (opts) {
     opts = opts || {};
 
     // Work with options here
@@ -8,6 +9,13 @@ module.exports = postcss.plugin('postcss-shopify-settings-variables', function (
     return function (css) {
 
         // Transform CSS AST here
-
+        css.eachInside(function (node) {
+            if ( node.type === 'decl' ) {
+                if ( node.value.toString().indexOf('$') === 0 ) {
+                    node.value = node.value
+                      .replace('$', '{{ settings.') + ' }}';
+                }
+            }
+        });
     };
 });

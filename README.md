@@ -1,6 +1,6 @@
 # PostCSS Shopify Settings Variables [![Build Status][ci-img]][ci]
 
-[PostCSS] plugin for setting variable in shopify css file.
+[PostCSS] plugin for variable of theme setting in shopify css file.
 It's common to use code like `{{ settings.headline_color }}` as value of css property in css file of shopify theme. It cause some annoying issues since it's a invalid value of css. For exmaple, your code editor will lost syntax highlighting.
 With this simple plugin, you can use code like `$headline_color` instead. It will be transformed to the syntax shopify support.
 

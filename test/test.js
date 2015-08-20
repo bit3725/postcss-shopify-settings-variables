@@ -41,22 +41,35 @@ describe('postcss-shopify-settings-variables', function () {
                 { }, done);
     });
 
-    it('replace single variable in value with liquid string filter', function (done) {
-        test('a{ font-family: $(font_family | replace: \'+\', \' \'); }',
-             'a{ font-family: {{ settings.font_family | replace: \'+\', \' \' }}; }',
+    it('replace single variable in value with liquid string filter',
+        function (done) {
+            test('a{ font-family: $(font_family | replace: \'+\', \' \'); }',
+                'a{ font-family: {{ settings.font_family ' +
+                    '| replace: \'+\', \' \' }}; }',
                 { }, done);
     });
 
-    describe('ignore $ elsewhere', function() {
-        it('ignore $ in property', function (done) {
-            test('a{ $color: headline_color; }',
-                'a{ $color: headline_color; }', { }, done);
-        });
-
-        it('ignore $ in middle of  value', function (done) {
-            test('a{ $color: headline_$color; }',
-                'a{ $color: headline_$color; }', { }, done);
-        });
+    it('replace single variable in value which has multiple variables',
+        function (done) {
+            test('a{ border-bottom: 1px dotted $(border_color); }',
+                'a{ border-bottom: 1px dotted {{ settings.border_color }}; }',
+                { }, done);
     });
+
+    it('replace single variable in value when there is quotes',
+        function (done) {
+            test('a{ font-family: "$(headline_google_webfont_font)"; }',
+                'a{ font-family: ' +
+                    '"{{ settings.headline_google_webfont_font }}"; }',
+                { }, done);
+    });
+
+    it('replace single variable in value when there is parenthesis',
+        function (done) {
+            test('a{ background: rgba($(header_bg_color), 0.9); }',
+                'a{ background: rgba({{ settings.header_bg_color }}, 0.9); }',
+                { }, done);
+    });
+
 
 });

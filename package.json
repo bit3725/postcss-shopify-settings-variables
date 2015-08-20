@@ -1,0 +1,36 @@
+{
+  "name": "postcss-shopify-settings-variables",
+  "version": "0.1",
+  "description": "[PostCSS] plugin for setting variable in shopify css file.
+It's common to use code like `{{ settings.headline_color }}` as value of css property in css file of shopify theme. It cause some annoying issues since it's a invalid value of css. For exmaple, your code editor will lost syntax highlighting.
+With this simple plugin, you can use code like `$headline_color` instead. It will be transformed to the syntax shopify support.",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "shopify",
+    "liquid"
+  ],
+  "author": "bit3725 <bit3725@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bit3725/postcss-shopify-settings-variables.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bit3725/postcss-shopify-settings-variables/issues"
+  },
+  "homepage": "https://github.com/bit3725/postcss-shopify-settings-variables",
+  "dependencies": {
+    "postcss": "^4.1.13"
+  },
+  "devDependencies": {
+    "chai": "^3.0.0",
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^0.14.0",
+    "gulp-mocha": "^2.1.2"
+  },
+  "scripts": {
+    "test": "gulp"
+  }
+}

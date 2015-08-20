@@ -31,19 +31,19 @@ describe('postcss-shopify-settings-variables', function () {
     });
 
     it('replace single variable in value with pixel unit', function (done) {
-        test('body{ font-size: $(headline_size)px;',
-             'body{ font-size: {{ settings.headline_size }}px; ', { }, done);
+        test('body{ font-size: $(headline_size)px; }',
+             'body{ font-size: {{ settings.headline_size }}px; }', { }, done);
     });
 
     it('replace single variable in value with liquid filter', function (done) {
-        test('a{ font-size: $(headline_size | divided_by: 2)px;',
-             'a{ font-size: {{ settings.headline_color | divided_by: 2 }}px; ',
+        test('a{ font-size: $(headline_size | divided_by: 2)px; }',
+             'a{ font-size: {{ settings.headline_size | divided_by: 2 }}px; }',
                 { }, done);
     });
 
     it('replace single variable in value with liquid string filter', function (done) {
-        test('a{ font-family: $(font_family | replace: \'+\', \' \');',
-             'a{ font-family: {{ settings.font_family | replace: \'+\', \' \' }}; ',
+        test('a{ font-family: $(font_family | replace: \'+\', \' \'); }',
+             'a{ font-family: {{ settings.font_family | replace: \'+\', \' \' }}; }',
                 { }, done);
     });
 

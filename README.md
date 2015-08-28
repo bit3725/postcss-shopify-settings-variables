@@ -15,6 +15,7 @@ With this simple plugin, you can use code like `$(headline_color)` instead. It w
     font-size: $(regular_font_size)px;
     border: 1px solid $(border_color);
     background: rgba($(settings.header_bg_color), 0.9);
+    background: url(logo.png);
 }
 ```
 
@@ -25,6 +26,7 @@ With this simple plugin, you can use code like `$(headline_color)` instead. It w
     font-size: {{ settings.regular_font_size }}px;
     border: 1px solid {{ settings.border_color ));
     background: rgba({{ settings.header_bg_color }}, 0.9);
+    background: url({{ "logo.png" | asset_url }});
 }
 ```
 

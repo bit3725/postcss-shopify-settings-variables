@@ -21,7 +21,8 @@ module.exports = postcss.plugin('postcss-shopify-settings-variables',
                                 return $1 + '{{ settings.' + $3 + ' }}' + $5;
                             });
                 }
-                if ( bgUrlRegex.test(node.value) && !protocolRegex.test(node.value) ) {
+                if ( bgUrlRegex.test(node.value) &&
+                    !protocolRegex.test(node.value) ) {
                     node.value = node.value.replace(bgUrlRegex,
                         'url({{ "$1" | asset_url }})');
                 }

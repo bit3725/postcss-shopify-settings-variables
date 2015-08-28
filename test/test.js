@@ -135,9 +135,10 @@ describe('postcss-shopify-settings-variables', function () {
 
     it('replace variable and url together',
         function (done) {
-            test('a{ background: $(modal_background_color) url("newsletter_bg.png"); }',
+            test('a{ background: $(modal_background_color) ' +
+                    'url("newsletter_bg.png"); }',
                 'a{ background: {{ settings.modal_background_color }} ' +
-                'url({{ "newsletter_bg.png" | asset_url }}); }',
+                    'url({{ "newsletter_bg.png" | asset_url }}); }',
                 { }, done);
         });
 });

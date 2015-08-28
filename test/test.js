@@ -47,14 +47,14 @@ describe('postcss-shopify-settings-variables', function () {
                 'a{ font-family: {{ settings.font_family ' +
                     '| replace: \'+\', \' \' }}; }',
                 { }, done);
-    });
+        });
 
     it('replace single variable in value which has multiple variables',
         function (done) {
             test('a{ border-bottom: 1px dotted $(border_color); }',
                 'a{ border-bottom: 1px dotted {{ settings.border_color }}; }',
                 { }, done);
-    });
+        });
 
     it('replace single variable in value when there is quotes',
         function (done) {
@@ -62,14 +62,58 @@ describe('postcss-shopify-settings-variables', function () {
                 'a{ font-family: ' +
                     '"{{ settings.headline_google_webfont_font }}"; }',
                 { }, done);
-    });
+        });
 
     it('replace single variable in value when there is parenthesis',
         function (done) {
             test('a{ background: rgba($(header_bg_color), 0.9); }',
                 'a{ background: rgba({{ settings.header_bg_color }}, 0.9); }',
                 { }, done);
+        });
+
+    describe('replace background url with asset_url filter', function () {
+        it('no quote', function (done) {
+            test('a{ background: url(logo.png); }',
+                'a{ background: url({{ "logo.png" | asset_url }}); }',
+                { }, done);
+        });
+
+        it('with space', function (done) {
+            test('a{ background: url( logo.png ); }',
+                'a{ background: url({{ "logo.png" | asset_url }}); }',
+                { }, done);
+        });
+
+        it('single quote', function (done) {
+            test('a{ background: url(\'logo.png\'); }',
+                'a{ background: url({{ "logo.png" | asset_url }}); }',
+                { }, done);
+        });
+
+        it('double quote', function (done) {
+            test('a{ background: url("logo.png"); }',
+                'a{ background: url({{ "logo.png" | asset_url }}); }',
+                { }, done);
+        });
+
+        it('only replae url', function (done) {
+            test('a{ background-image: url(logo.png) no-repeat; }',
+                'a{ background-image: url({{ "logo.png" | asset_url }}) ' +
+                    'no-repeat; }',
+                { }, done);
+        });
+
+        it('multiple url', function (done) {
+            test('a{ background: url("logo.png"), url(logo@2x.jpg); }',
+                'a{ background: url({{ "logo.png" | asset_url }}), ' +
+                    'url({{ "logo@2x.jpg" | asset_url }}); }',
+                { }, done);
+        });
+
+        it('not replace url with full path', function (done) {
+            test('a{ background: url("http://a.com/logo.png"); }',
+                'a{ background: url("http://a.com/logo.png"); }',
+                { }, done);
+        });
     });
-
-
 });

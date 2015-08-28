@@ -96,7 +96,7 @@ describe('postcss-shopify-settings-variables', function () {
                 { }, done);
         });
 
-        it('only replae url', function (done) {
+        it('only replace url', function (done) {
             test('a{ background-image: url(logo.png) no-repeat; }',
                 'a{ background-image: url({{ "logo.png" | asset_url }}) ' +
                     'no-repeat; }',
@@ -113,6 +113,12 @@ describe('postcss-shopify-settings-variables', function () {
         it('not replace url with full path', function (done) {
             test('a{ background: url("http://a.com/logo.png"); }',
                 'a{ background: url("http://a.com/logo.png"); }',
+                { }, done);
+        });
+
+        it('not replace url with data uri', function (done) {
+            test('a{ background: url(data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7); }',
+                'a{ background: url(data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7); }',
                 { }, done);
         });
     });

@@ -12,7 +12,7 @@ module.exports = postcss.plugin('postcss-shopify-settings-variables',
     return function (css) {
 
         // Transform CSS AST here
-        css.eachInside(function (node) {
+        css.walk(function (node) {
             if ( node.type === 'decl' ) {
                 if ( node.value.indexOf('$(') >= 0 ) {
                     node.value = node.value

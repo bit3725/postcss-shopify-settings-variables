@@ -1,6 +1,6 @@
 {
   "name": "postcss-shopify-settings-variables",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "[PostCSS] plugin for setting variable in shopify css file.",
   "keywords": [
     "postcss",

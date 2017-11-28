@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/bit3725/postcss-shopify-settings-variables",
   "dependencies": {
-    "postcss": "^4.1.13"
+    "postcss": "^6.x"
   },
   "devDependencies": {
     "chai": "^3.0.0",

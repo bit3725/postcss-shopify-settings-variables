@@ -1,6 +1,6 @@
 var postcss = require('postcss');
 
-var bgUrlRegex = /url\(\s?['"]?(.*?)['"]?\s?\)/g;
+var bgUrlRegex = /url\([\s'"]?(.*?)[\s'"]?\)/g;
 var protocolRegex = /(https?:)?\/\/|data:/g;
 
 module.exports = postcss.plugin('postcss-shopify-settings-variables',
@@ -24,7 +24,21 @@ module.exports = postcss.plugin('postcss-shopify-settings-variables',
                 if ( bgUrlRegex.test(node.value) &&
                     !protocolRegex.test(node.value) ) {
                     node.value = node.value.replace(bgUrlRegex,
-                        'url({{ "$1" | asset_url }})');
+                        function(match, $1) {
+                            var urlAndFilters = $1.split('|');
+                            var newVal = 'url({{ "';
+                            urlAndFilters.forEach(function (current, index) {
+                                if (index === 0) {
+                                    newVal += current.replace(/'|"/g, '')
+                                        .trim();
+                                    newVal += '" | asset_url ';
+                                } else {
+                                    newVal += '| ' + current.trim() + ' ';
+                                }
+                            });
+                            newVal += '}})';
+                            return newVal;
+                        });
                 }
             }
         });

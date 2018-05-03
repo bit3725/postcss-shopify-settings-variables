@@ -18,6 +18,7 @@ With this simple [PostCSS](https://github.com/postcss/postcss) plugin, you can s
     border: 1px solid $(border_color);
     background: rgba($(settings.header_bg_color), 0.9);
     background: url(logo.png);
+    background: url(logo.png | split: '?' | first);
 }
 ```
 
@@ -31,6 +32,7 @@ Will be transformed to:
     border: 1px solid {{ settings.border_color }};
     background: rgba({{ settings.header_bg_color }}, 0.9);
     background: url({{ "logo.png" | asset_url }});
+    background: url({{ "logo.png" | asset_url | split: '?' | first }});
 }
 ```
 

@@ -25,19 +25,19 @@ describe('postcss-shopify-settings-variables', function () {
     it('replace multiple variables in multiple values', function (done) {
         test('a{ color: $(headline_color); ' +
                 'background-color: $(healine_bg_color); }',
-             'a{ color: {{ settings.headline_color }}; ' +
+            'a{ color: {{ settings.headline_color }}; ' +
                 'background-color: {{ settings.healine_bg_color }}; }',
-                { }, done);
+            { }, done);
     });
 
     it('replace single variable in value with pixel unit', function (done) {
         test('body{ font-size: $(headline_size)px; }',
-             'body{ font-size: {{ settings.headline_size }}px; }', { }, done);
+            'body{ font-size: {{ settings.headline_size }}px; }', { }, done);
     });
 
     it('replace single variable in value with liquid filter', function (done) {
         test('a{ font-size: $(headline_size | divided_by: 2)px; }',
-             'a{ font-size: {{ settings.headline_size | divided_by: 2 }}px; }',
+            'a{ font-size: {{ settings.headline_size | divided_by: 2 }}px; }',
                 { }, done);
     });
 
@@ -140,5 +140,42 @@ describe('postcss-shopify-settings-variables', function () {
                 'a{ background: {{ settings.modal_background_color }} ' +
                     'url({{ "newsletter_bg.png" | asset_url }}); }',
                 { }, done);
+        });
+
+    describe('insert asset_url filter between background url and associated filters',
+        function () {
+            it('single url with filters', function(done) {
+                test('a{ background: url(logo.png | split: "?" | first); }',
+                    'a{ background: url({{ ' +
+                        '"logo.png" | asset_url | split: "?" | first }}); }',
+                    {}, done);
+            });
+
+            it('variable and single url with filters', function(done) {
+                test('a{ background: url(logo.png | split: "?" | first)' +
+                        ' $(modal_background_color); }',
+                    'a{ background: url({{ ' +
+                        '"logo.png" | asset_url | split: "?" | first }})' +
+                        ' {{ settings.modal_background_color }}; }',
+                    {}, done);
+            });
+
+            it('multiple url with filters', function(done) {
+                test('a{ background: url(logo.png | split: "?" | first), ' +
+                        'url("logo@2x.png" | downcase); }',
+                    'a{ background: url({{ ' +
+                        '"logo.png" | asset_url | split: "?" | first }}), ' +
+                        'url({{ "logo@2x.png" | asset_url | downcase }}); }',
+                    {}, done);
+            });
+
+            it('one url with filters, another without filters', function(done) {
+                test('a{ background: url( logo.png ), ' +
+                        'url(\'logo@2x.png\' | downcase); }',
+                    'a{ background: url({{ ' +
+                        '"logo.png" | asset_url }}), ' +
+                        'url({{ "logo@2x.png" | asset_url | downcase }}); }',
+                    {}, done);
+            });
         });
 });

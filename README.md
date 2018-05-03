@@ -28,7 +28,7 @@ Will be transformed to:
     color: {{ settings.headline_color }}; /* Shopify friendly values */
     font-family: {{ settings.regular_websafe_font | replace: '+', ' ' }};
     font-size: {{ settings.regular_font_size }}px;
-    border: 1px solid {{ settings.border_color ));
+    border: 1px solid {{ settings.border_color }};
     background: rgba({{ settings.header_bg_color }}, 0.9);
     background: url({{ "logo.png" | asset_url }});
 }

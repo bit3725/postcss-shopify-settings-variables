@@ -142,7 +142,8 @@ describe('postcss-shopify-settings-variables', function () {
                 { }, done);
         });
 
-    describe('insert asset_url filter between background url and associated filters',
+    describe('insert asset_url filter ' +
+        'between background url and associated filters',
         function () {
             it('single url with filters', function(done) {
                 test('a{ background: url(logo.png | split: "?" | first); }',

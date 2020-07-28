@@ -1,6 +1,6 @@
 {
   "name": "postcss-shopify-settings-variables",
-  "version": "0.3.1",
+  "version": "0.0.0",
   "description": "PostCSS plugin for setting variable in shopify css file.",
   "keywords": [
     "postcss",
@@ -9,43 +9,38 @@
     "shopify",
     "liquid"
   ],
+  "scripts": {
+    "test": "jest && eslint ."
+  },
   "author": "xingkui wang <bit3725@gmail.com>",
   "license": "MIT",
   "repository": "bit3725/postcss-shopify-settings-variables",
-  "bugs": {
-    "url": "https://github.com/bit3725/postcss-shopify-settings-variables/issues"
-  },
-  "homepage": "https://github.com/bit3725/postcss-shopify-settings-variables",
   "dependencies": {
     "postcss": "^7.0.18"
   },
   "devDependencies": {
     "@logux/eslint-config": "^33.0.0",
-    "chai": "^3.0.0",
     "eslint": "^6.5.1",
     "eslint-config-postcss": "^3.0.7",
-    "eslint-config-prettier": "^6.11.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-es5": "^1.4.1",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^22.19.0",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-prefer-let": "^1.0.1",
-    "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-unicorn": "^12.1.0",
-    "jest": "^24.9.0",
-    "prettier": "2.0.5"
+    "jest": "^24.9.0"
+  },
+  "eslintConfig": {
+    "extends": "eslint-config-postcss"
   },
   "engines": {
     "node": ">=8.0.0"
   },
   "jest": {
     "testEnvironment": "node"
-  },
-  "scripts": {
-    "test": "jest && eslint ."
   }
 }

@@ -1,8 +1,11 @@
-.gitignore
+yarn-error.log
+yarn.lock
 
-node_modules/
-
-test/
+*.test.js
 .travis.yml
+.editorconfig
 
+.gitignore
+node_modules/
+test/
 gulpfile.js

@@ -182,4 +182,12 @@ describe('postcss-shopify-settings-variables', () => {
       );
     });
   });
+
+  it('multiple settings on same line', async () => {
+    await run(
+      'a{ font-family: $(type_header_font_family.family), $(type_header_font_family.fallback_families); }',
+      'a{ font-family: {{ settings.type_header_font_family.family }}, {{ settings.type_header_font_family.fallback_families }}; }',
+      {},
+    );
+  });
 });

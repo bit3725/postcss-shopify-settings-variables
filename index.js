@@ -11,7 +11,7 @@ module.exports = postcss.plugin('postcss-shopify-settings-variables', () => {
     // Transform CSS AST here
     root.walk(function (node) {
       if (node.type === 'decl') {
-        if (node.value.includes('$(')) {
+        while (node.value.includes('$(')) {
           node.value = node.value.replace(
             /^([^$]*)(\$\()([^)]+)(\))(.*)$/,
             function (match, $1, $2, $3, $4, $5) {

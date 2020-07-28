@@ -21,10 +21,8 @@ describe('postcss-shopify-settings-variables', () => {
 
   it('replace multiple variables in multiple values', async () => {
     await run(
-      'a{ color: $(headline_color); ' +
-        'background-color: $(healine_bg_color); }',
-      'a{ color: {{ settings.headline_color }}; ' +
-        'background-color: {{ settings.healine_bg_color }}; }',
+      'a{ color: $(headline_color); background-color: $(healine_bg_color); }',
+      'a{ color: {{ settings.headline_color }}; background-color: {{ settings.healine_bg_color }}; }',
       {},
     );
   });
@@ -48,7 +46,7 @@ describe('postcss-shopify-settings-variables', () => {
   it('replace single variable in value with liquid string filter', async () => {
     await run(
       "a{ font-family: $(font_family | replace: '+', ' '); }",
-      'a{ font-family: {{ settings.font_family ' + "| replace: '+', ' ' }}; }",
+      "a{ font-family: {{ settings.font_family | replace: '+', ' ' }}; }",
       {},
     );
   });
@@ -64,7 +62,7 @@ describe('postcss-shopify-settings-variables', () => {
   it('replace single variable in value when there is quotes', async () => {
     await run(
       'a{ font-family: "$(headline_google_webfont_font)"; }',
-      'a{ font-family: ' + '"{{ settings.headline_google_webfont_font }}"; }',
+      'a{ font-family: "{{ settings.headline_google_webfont_font }}"; }',
       {},
     );
   });
@@ -113,8 +111,7 @@ describe('postcss-shopify-settings-variables', () => {
     it('only replace url', async () => {
       await run(
         'a{ background-image: url(logo.png) no-repeat; }',
-        'a{ background-image: url({{ "logo.png" | asset_url }}) ' +
-          'no-repeat; }',
+        'a{ background-image: url({{ "logo.png" | asset_url }}) no-repeat; }',
         {},
       );
     });
@@ -122,8 +119,7 @@ describe('postcss-shopify-settings-variables', () => {
     it('multiple url', async () => {
       await run(
         'a{ background: url("logo.png"), url(logo@2x.jpg); }',
-        'a{ background: url({{ "logo.png" | asset_url }}), ' +
-          'url({{ "logo@2x.jpg" | asset_url }}); }',
+        'a{ background: url({{ "logo.png" | asset_url }}), url({{ "logo@2x.jpg" | asset_url }}); }',
         {},
       );
     });
@@ -138,18 +134,8 @@ describe('postcss-shopify-settings-variables', () => {
 
     it('not replace url with data uri', async () => {
       await run(
-        'a{ background: url(data:image/gif;base64,' +
-          'R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o' +
-          '/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' +
-          'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVIC' +
-          'SOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhw' +
-          'FUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7); }',
-        'a{ background: url(data:image/gif;base64,' +
-          'R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o' +
-          '/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' +
-          'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVIC' +
-          'SOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhw' +
-          'FUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7); }',
+        'a{ background: url(data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7); }',
+        'a{ background: url(data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7); }',
         {},
       );
     });
@@ -157,10 +143,8 @@ describe('postcss-shopify-settings-variables', () => {
 
   it('replace variable and url together', async () => {
     await run(
-      'a{ background: $(modal_background_color) ' +
-        'url("newsletter_bg.png"); }',
-      'a{ background: {{ settings.modal_background_color }} ' +
-        'url({{ "newsletter_bg.png" | asset_url }}); }',
+      'a{ background: $(modal_background_color) url("newsletter_bg.png"); }',
+      'a{ background: {{ settings.modal_background_color }} url({{ "newsletter_bg.png" | asset_url }}); }',
       {},
     );
   });
@@ -169,40 +153,31 @@ describe('postcss-shopify-settings-variables', () => {
     it('single url with filters', async () => {
       await run(
         'a{ background: url(logo.png | split: "?" | first); }',
-        'a{ background: url({{ ' +
-          '"logo.png" | asset_url | split: "?" | first }}); }',
+        'a{ background: url({{ "logo.png" | asset_url | split: "?" | first }}); }',
         {},
       );
     });
 
     it('variable and single url with filters', async () => {
       await run(
-        'a{ background: url(logo.png | split: "?" | first)' +
-          ' $(modal_background_color); }',
-        'a{ background: url({{ ' +
-          '"logo.png" | asset_url | split: "?" | first }})' +
-          ' {{ settings.modal_background_color }}; }',
+        'a{ background: url(logo.png | split: "?" | first) $(modal_background_color); }',
+        'a{ background: url({{ "logo.png" | asset_url | split: "?" | first }}) {{ settings.modal_background_color }}; }',
         {},
       );
     });
 
     it('multiple url with filters', async () => {
       await run(
-        'a{ background: url(logo.png | split: "?" | first), ' +
-          'url("logo@2x.png" | downcase); }',
-        'a{ background: url({{ ' +
-          '"logo.png" | asset_url | split: "?" | first }}), ' +
-          'url({{ "logo@2x.png" | asset_url | downcase }}); }',
+        'a{ background: url(logo.png | split: "?" | first), url("logo@2x.png" | downcase); }',
+        'a{ background: url({{ "logo.png" | asset_url | split: "?" | first }}), url({{ "logo@2x.png" | asset_url | downcase }}); }',
         {},
       );
     });
 
     it('one url with filters, another without filters', async () => {
       await run(
-        'a{ background: url( logo.png ), ' + "url('logo@2x.png' | downcase); }",
-        'a{ background: url({{ ' +
-          '"logo.png" | asset_url }}), ' +
-          'url({{ "logo@2x.png" | asset_url | downcase }}); }',
+        "a{ background: url( logo.png ), url('logo@2x.png' | downcase); }",
+        'a{ background: url({{ "logo.png" | asset_url }}), url({{ "logo@2x.png" | asset_url | downcase }}); }',
         {},
       );
     });
